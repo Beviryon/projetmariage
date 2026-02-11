@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Médias : lecture publique (pour le site + dashboard), création par tous (invités/mariés), update/delete pour modération
+    match /media/{mediaId} {
+      // Pour le MVP, on autorise la lecture de tous les médias (même non approuvés)
+      // afin que le tableau de bord puisse lister les médias en attente.
+      // À durcir plus tard si besoin.
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if true;
+      match /likes/{likeId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Commentaires : lecture si approuvé, création uniquement (pas de modification/suppression)
+    match /comments/{commentId} {
+      allow read: if resource.data.isApproved == true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+
+    // Playlist : lecture pour tous, écriture pour configuration
+    match /playlist/{itemId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Livre d'or : lecture si approuvé, création uniquement
+    match /guestbook/{entryId} {
+      allow read: if resource.data.isApproved == true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+  }
+}
