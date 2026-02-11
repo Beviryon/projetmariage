@@ -7,17 +7,35 @@ import { getPlaylist } from "@/lib/firestore";
 import type { PlaylistItem } from "@/lib/types";
 import type { MomentKey } from "@/lib/types";
 
+type MomentFilter = MomentKey | "all";
+
 export function YouTubePlayer() {
   const [playlist, setPlaylist] = useState<PlaylistItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [momentFilter, setMomentFilter] = useState<MomentFilter>("all");
 
   useEffect(() => {
     getPlaylist().then(setPlaylist);
   }, []);
 
-  const current = playlist[currentIndex];
+  const filteredPlaylist =
+    momentFilter === "all"
+      ? playlist
+      : playlist.filter((p) => p.moment === momentFilter);
+  const safeIndex = Math.min(currentIndex, Math.max(0, filteredPlaylist.length - 1));
+  const current = filteredPlaylist[safeIndex];
 
-  if (!playlist.length || !current) {
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [momentFilter]);
+
+  useEffect(() => {
+    if (currentIndex >= filteredPlaylist.length && filteredPlaylist.length > 0) {
+      setCurrentIndex(filteredPlaylist.length - 1);
+    }
+  }, [filteredPlaylist.length, currentIndex]);
+
+  if (!playlist.length) {
     return (
       <div className="py-12 text-center text-stone-500">
         La playlist sera bientôt disponible.
@@ -25,23 +43,79 @@ export function YouTubePlayer() {
     );
   }
 
+  if (!filteredPlaylist.length) {
+    return (
+      <div className="space-y-4">
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setMomentFilter("all")}
+            className={`px-4 py-2 rounded-full text-sm font-medium ${momentFilter === "all" ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600"}`}
+          >
+            Tous
+          </button>
+          {(Object.keys(MOMENTS) as MomentKey[]).map((m) => (
+            <button
+              key={m}
+              type="button"
+              onClick={() => setMomentFilter(m)}
+              className={`px-4 py-2 rounded-full text-sm font-medium ${momentFilter === m ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600"}`}
+            >
+              {MOMENTS[m]}
+            </button>
+          ))}
+        </div>
+        <p className="py-12 text-center text-stone-500">
+          Aucune vidéo pour {momentFilter === "all" ? "cette sélection" : MOMENTS[momentFilter]}.
+        </p>
+      </div>
+    );
+  }
+
   const goNext = () => {
-    setCurrentIndex((i) => (i < playlist.length - 1 ? i + 1 : 0));
+    setCurrentIndex((i) => (i < filteredPlaylist.length - 1 ? i + 1 : 0));
   };
-
   const goPrev = () => {
-    setCurrentIndex((i) => (i > 0 ? i - 1 : playlist.length - 1));
+    setCurrentIndex((i) => (i > 0 ? i - 1 : filteredPlaylist.length - 1));
   };
 
-  const byMoment = playlist.reduce((acc, item) => {
-    const m = item.moment as MomentKey;
-    if (!acc[m]) acc[m] = [];
-    acc[m].push(item);
-    return acc;
-  }, {} as Record<MomentKey, PlaylistItem[]>);
+  const byMoment = (momentFilter === "all" ? playlist : filteredPlaylist).reduce(
+    (acc, item) => {
+      const m = item.moment as MomentKey;
+      if (!acc[m]) acc[m] = [];
+      acc[m].push(item);
+      return acc;
+    },
+    {} as Record<MomentKey, PlaylistItem[]>
+  );
+  const momentsToShow = momentFilter === "all" ? (Object.keys(MOMENTS) as MomentKey[]) : [momentFilter];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+    <div className="space-y-4">
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => setMomentFilter("all")}
+          className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
+            momentFilter === "all" ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+          }`}
+        >
+          Tous
+        </button>
+        {(Object.keys(MOMENTS) as MomentKey[]).map((m) => (
+          <button
+            key={m}
+            type="button"
+            onClick={() => setMomentFilter(m)}
+            className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
+              momentFilter === m ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+            }`}
+          >
+            {MOMENTS[m]}
+          </button>
+        ))}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
       <div className="md:col-span-2 space-y-3 sm:space-y-4 order-1">
         <div className="aspect-video rounded-lg sm:rounded-xl overflow-hidden bg-black">
           <iframe
@@ -85,7 +159,7 @@ export function YouTubePlayer() {
       <div className="space-y-4 order-2">
         <h4 className="font-serif text-lg text-stone-800">Playlist</h4>
         <div className="space-y-6 max-h-[280px] sm:max-h-[350px] md:max-h-[400px] overflow-y-auto hide-scrollbar">
-          {(Object.keys(MOMENTS) as MomentKey[]).map((moment) => {
+          {momentsToShow.map((moment) => {
             const items = byMoment[moment] || [];
             if (!items.length) return null;
 
@@ -95,19 +169,19 @@ export function YouTubePlayer() {
                   {MOMENTS[moment]}
                 </p>
                 <ul className="space-y-1">
-                  {items.map((item, i) => (
+                  {items.map((item) => (
                     <li key={item.id}>
                       <button
                         onClick={() =>
-                          setCurrentIndex(playlist.findIndex((p) => p.id === item.id))
+                          setCurrentIndex(filteredPlaylist.findIndex((p) => p.id === item.id))
                         }
-                        className={`w-full text-left py-2.5 px-3 rounded-lg transition text-sm touch-manipulation ${
-                          current.id === item.id
+                        className={`w-full text-left py-3 px-3 rounded-lg transition text-sm touch-manipulation min-h-[44px] flex items-center ${
+                          current?.id === item.id
                             ? "bg-rose-100 text-rose-700"
-                            : "hover:bg-champagne-100 text-stone-600"
+                            : "hover:bg-champagne-100 active:bg-champagne-200 text-stone-600"
                         }`}
                       >
-                        {item.title}
+                        <span className="truncate block">{item.title}</span>
                       </button>
                     </li>
                   ))}
@@ -117,6 +191,7 @@ export function YouTubePlayer() {
           })}
         </div>
       </div>
+    </div>
     </div>
   );
 }

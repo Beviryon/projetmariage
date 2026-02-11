@@ -69,7 +69,7 @@ export function Guestbook() {
   };
 
   return (
-    <section id="livre-or" className="py-12 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-4 sm:px-6">
+    <section id="livre-or" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6">
       <motion.h2
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -87,7 +87,7 @@ export function Guestbook() {
             placeholder={hasName ? "Laissez-nous un message..." : "Cliquez pour entrer votre prénom"}
             maxLength={1000}
             rows={4}
-            className="w-full px-4 py-3 rounded-xl border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 focus:border-rose-400 outline-none resize-none text-base min-h-[100px]"
+            className="w-full px-4 py-3 rounded-xl border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 focus:border-rose-400 outline-none resize-none text-base min-h-[100px] touch-manipulation"
             onClick={() => !hasName && setShowNameModal(true)}
           />
           <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 mt-2">
@@ -95,7 +95,7 @@ export function Guestbook() {
             <button
               type="submit"
               disabled={!content.trim() || submitting}
-              className="px-6 py-3 sm:py-2.5 rounded-lg bg-rose-400 text-white hover:bg-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition font-medium touch-manipulation order-1 sm:order-2"
+              className="px-6 py-3 sm:py-2.5 rounded-lg bg-rose-400 text-white hover:bg-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition font-medium touch-manipulation min-h-[44px] order-1 sm:order-2"
             >
               {submitting ? "Envoi..." : "Publier"}
             </button>

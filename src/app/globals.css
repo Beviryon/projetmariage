@@ -16,12 +16,17 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
   font-family: var(--font-cormorant), Georgia, serif;
+  overflow-x: hidden;
+  /* Safe area for notched devices (iPhone X+, etc.) */
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
 }
 
 /* Évite le zoom automatique sur iOS quand on focus un input */

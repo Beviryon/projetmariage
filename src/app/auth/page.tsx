@@ -2,7 +2,6 @@
 
 import { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
 
 const AUTH_KEY = "wedding_authenticated";
 
@@ -42,11 +41,7 @@ function AuthForm() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-champagne-200"
-    >
+    <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-champagne-200">
       <h1 className="font-serif text-xl sm:text-2xl text-stone-800 text-center mb-2">
         Accès privé
       </h1>
@@ -82,7 +77,7 @@ function AuthForm() {
           Accéder
         </button>
       </form>
-    </motion.div>
+    </div>
   );
 }
 

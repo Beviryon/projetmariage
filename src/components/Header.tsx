@@ -23,15 +23,15 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-0 left-0 right-0 z-30 bg-champagne-50/95 backdrop-blur-md border-b border-champagne-200"
+      className="fixed top-0 left-0 right-0 z-30 bg-champagne-50/95 backdrop-blur-md border-b border-champagne-200 pt-[env(safe-area-inset-top)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]"
     >
-      <nav className="max-w-6xl mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
-        <Link href="/" className="font-serif text-lg md:text-xl text-stone-800 hover:text-rose-500 transition">
+      <nav className="max-w-6xl mx-auto px-3 py-2.5 sm:px-4 md:py-4 flex items-center justify-between gap-2 min-h-[44px] md:min-h-0">
+        <Link href="/" className="font-serif text-base sm:text-lg md:text-xl text-stone-800 hover:text-rose-500 active:text-rose-600 transition truncate min-w-0 max-w-[60vw] sm:max-w-none py-2 touch-manipulation">
           {names}
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-6 text-sm">
+        <div className="hidden md:flex items-center gap-5 lg:gap-6 text-sm">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -48,8 +48,9 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg text-stone-600 hover:bg-champagne-200 transition"
-          aria-label="Menu"
+          className="md:hidden min-w-[44px] min-h-[44px] w-11 h-11 flex items-center justify-center rounded-lg text-stone-600 hover:bg-champagne-200 active:bg-champagne-300 transition touch-manipulation shrink-0"
+          aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={menuOpen}
         >
           {menuOpen ? (
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,20 +72,20 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden border-t border-champagne-200 bg-champagne-50"
+            className="md:hidden overflow-hidden border-t border-champagne-200 bg-champagne-50 shadow-lg pb-[env(safe-area-inset-bottom)]"
           >
-            <div className="px-4 py-3 space-y-1">
+            <nav className="px-3 sm:px-4 py-3 space-y-1" aria-label="Menu principal">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`block py-3 px-3 rounded-lg transition ${link.dashboard ? "text-rose-500 font-medium hover:bg-rose-50" : "text-stone-600 hover:bg-champagne-200 hover:text-rose-500"}`}
+                  className={`block py-3.5 px-4 rounded-xl transition min-h-[48px] flex items-center text-base touch-manipulation ${link.dashboard ? "text-rose-500 font-medium hover:bg-rose-50 active:bg-rose-100" : "text-stone-600 hover:bg-champagne-200 hover:text-rose-500 active:bg-champagne-300"}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

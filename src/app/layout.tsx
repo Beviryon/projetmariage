@@ -1,7 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+};
 
 const playfair = Playfair_Display({
   subsets: ["latin"],

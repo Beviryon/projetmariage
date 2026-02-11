@@ -39,10 +39,10 @@ const TIMELINE_STEPS = [
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen overflow-x-hidden">
       <Header names="Berges & Brest" />
       <Hero />
-      <section id="galerie" className="py-12 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-4 sm:px-6">
+      <section id="galerie" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl text-stone-800 text-center mb-8 sm:mb-12">
             Galerie
@@ -51,7 +51,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="timeline" className="py-12 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-4 sm:px-6 bg-champagne-50/50">
+      <section id="timeline" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6 bg-champagne-50/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl text-stone-800 text-center mb-10 sm:mb-16">
             Notre histoire
@@ -60,7 +60,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="playlist" className="py-12 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-4 sm:px-6">
+      <section id="playlist" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl text-stone-800 text-center mb-8 sm:mb-12">
             Notre playlist

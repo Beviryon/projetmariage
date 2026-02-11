@@ -38,7 +38,7 @@ export function NameModal({ isOpen, onClose, onSave }: NameModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[110] w-[calc(100%-2rem)] max-w-md p-5 sm:p-6 mx-4 bg-champagne-50 rounded-2xl shadow-xl border border-champagne-200"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[110] w-[calc(100%-2rem)] max-w-md max-h-[min(90dvh,calc(100vh-2rem))] overflow-y-auto p-5 sm:p-6 mx-4 bg-champagne-50 rounded-2xl shadow-xl border border-champagne-200"
           >
             <h3 className="font-serif text-lg sm:text-xl text-stone-800 mb-2">
               Comment vous appelez-vous ?

@@ -44,5 +44,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  // Ne pas exécuter le middleware sur les assets et l'API
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|icon.svg).*)"],
 };

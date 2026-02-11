@@ -22,6 +22,7 @@ export function MediaGallery() {
   const [showComments, setShowComments] = useState<string | null>(null);
   const [likedMap, setLikedMap] = useState<Record<string, boolean>>({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [momentFilter, setMomentFilter] = useState<MomentKey | "all">("all");
 
   const visitorId = useVisitorId();
 
@@ -50,10 +51,14 @@ export function MediaGallery() {
   }, {} as Record<MomentKey, Media[]>);
 
   const orderedMedia = MOMENT_ORDER.flatMap((moment) => byMoment[moment] ?? []);
-  const totalPages = Math.max(1, Math.ceil(orderedMedia.length / ITEMS_PER_PAGE));
+  const filteredMedia =
+    momentFilter === "all"
+      ? orderedMedia
+      : orderedMedia.filter((m) => m.moment === momentFilter);
+  const totalPages = Math.max(1, Math.ceil(filteredMedia.length / ITEMS_PER_PAGE));
   const pageIndex = Math.min(currentPage, totalPages);
   const start = (pageIndex - 1) * ITEMS_PER_PAGE;
-  const pageItems = orderedMedia.slice(start, start + ITEMS_PER_PAGE);
+  const pageItems = filteredMedia.slice(start, start + ITEMS_PER_PAGE);
 
   if (loading) {
     return (
@@ -66,7 +71,40 @@ export function MediaGallery() {
   return (
     <>
       <div className="space-y-6">
-        <div className="grid grid-cols-2 sm:gap-3 md:gap-4 gap-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setMomentFilter("all");
+              setCurrentPage(1);
+            }}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
+              momentFilter === "all"
+                ? "bg-rose-400 text-white"
+                : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+            }`}
+          >
+            Tous
+          </button>
+          {(Object.keys(MOMENTS) as MomentKey[]).map((moment) => (
+            <button
+              key={moment}
+              type="button"
+              onClick={() => {
+                setMomentFilter(moment);
+                setCurrentPage(1);
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
+                momentFilter === moment
+                  ? "bg-rose-400 text-white"
+                  : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+              }`}
+            >
+              {MOMENTS[moment]}
+            </button>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 md:grid-cols-3 lg:grid-cols-4">
           {pageItems.map((item, i) => (
             <motion.div
               key={item.id}
@@ -205,7 +243,7 @@ export function MediaGallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4"
             onClick={() => setShowComments(null)}
           >
             <motion.div
@@ -213,12 +251,12 @@ export function MediaGallery() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[85vh] sm:max-h-[80vh] overflow-y-auto mx-2"
+              className="bg-white rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[min(85dvh,calc(100vh-2rem))] overflow-y-auto mx-2 my-4"
             >
               <CommentSection mediaId={showComments} />
               <button
                 onClick={() => setShowComments(null)}
-                className="mt-4 w-full py-2 rounded-lg border border-stone-300 text-stone-600"
+                className="mt-4 w-full py-3 rounded-lg border border-stone-300 text-stone-600 min-h-[44px] touch-manipulation"
               >
                 Fermer
               </button>
@@ -280,7 +318,7 @@ function FullscreenViewer({
     >
       <button
         onClick={onClose}
-        className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-11 h-11 sm:w-10 sm:h-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30 active:bg-white/40 touch-manipulation"
+        className="absolute z-10 min-w-[44px] min-h-[44px] w-11 h-11 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30 active:bg-white/40 touch-manipulation top-[max(0.75rem,env(safe-area-inset-top))] right-[max(0.75rem,env(safe-area-inset-right))]"
         aria-label="Fermer"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -313,7 +351,7 @@ function FullscreenViewer({
         )}
       </div>
 
-      <div className="absolute bottom-4 left-3 right-3 sm:left-4 sm:right-4 flex flex-col gap-3">
+      <div className="absolute bottom-4 left-3 right-3 sm:left-4 sm:right-4 flex flex-col gap-3 pb-[env(safe-area-inset-bottom)]">
         <div className="text-center text-white text-sm sm:text-base">
           <p className="font-medium">{MOMENTS[current.moment]}</p>
           {current.caption?.trim() && current.caption.trim() !== MOMENTS[current.moment] && (

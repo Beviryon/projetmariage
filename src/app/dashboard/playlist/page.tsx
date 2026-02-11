@@ -198,14 +198,14 @@ export default function DashboardPlaylistPage() {
             <label className="block text-sm font-medium text-stone-700 mb-1">
               Titre
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value.slice(0, 100))}
                 placeholder="Saisissez un titre ou récupérez-le depuis YouTube"
                 maxLength={100}
-                className="flex-1 px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm"
+                className="flex-1 min-w-0 px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm"
               />
               <button
                 type="button"
@@ -223,7 +223,7 @@ export default function DashboardPlaylistPage() {
                   setFetchingTitle(false);
                 }}
                 disabled={fetchingTitle || !youtubeInput.trim()}
-                className="px-3 py-2.5 rounded-lg border border-champagne-300 bg-white text-stone-600 hover:bg-champagne-50 text-sm whitespace-nowrap disabled:opacity-50"
+                className="px-3 py-2.5 rounded-lg border border-champagne-300 bg-white text-stone-600 hover:bg-champagne-50 text-sm whitespace-nowrap disabled:opacity-50 min-h-[44px] touch-manipulation"
               >
                 {fetchingTitle ? "…" : "Récupérer"}
               </button>
