@@ -59,7 +59,7 @@ export default function DashboardMediaPage() {
   const [tab, setTab] = useState<"pending" | "approved">("pending");
   const [actioning, setActioning] = useState<string | null>(null);
   const [cloudinaryInput, setCloudinaryInput] = useState("");
-  const [moment, setMoment] = useState<MomentKey>("soiree");
+  const [moment, setMoment] = useState<MomentKey>("preparatifs");
   const [mediaType, setMediaType] = useState<Media["type"]>("image");
   const [caption, setCaption] = useState("");
   const [adding, setAdding] = useState(false);

@@ -11,7 +11,7 @@ export interface TimelineStep {
   description: string;
   image?: string;
   video?: string;
-  moment?: "preparatifs" | "ceremonie" | "soiree";
+  moment?: "avant_couple" | "compagnons" | "preparatifs" | "ceremonie" | "soiree";
 }
 
 interface TimelineProps {

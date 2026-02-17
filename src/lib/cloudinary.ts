@@ -3,6 +3,8 @@ const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 export type MediaType = "image" | "video";
 
 export const MOMENTS = {
+  avant_couple: "Avant qu'on se mette en couple",
+  compagnons: "Compagnon et copine",
   preparatifs: "Préparatifs",
   ceremonie: "Cérémonie",
   soiree: "Soirée",
