@@ -14,8 +14,10 @@ export function YouTubePlayer() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [momentFilter, setMomentFilter] = useState<MomentFilter>("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [expandedMoments, setExpandedMoments] = useState<Record<string, boolean>>({});
 
   const filterLabel = momentFilter === "all" ? "Tous" : MOMENTS[momentFilter];
+  const ITEMS_VISIBLE_INITIALLY = 3;
 
   useEffect(() => {
     getPlaylist().then(setPlaylist);
@@ -196,13 +198,18 @@ export function YouTubePlayer() {
             const items = byMoment[moment] || [];
             if (!items.length) return null;
 
+            const isExpanded = expandedMoments[moment] ?? false;
+            const visibleItems = isExpanded ? items : items.slice(0, ITEMS_VISIBLE_INITIALLY);
+            const hasMore = items.length > ITEMS_VISIBLE_INITIALLY;
+            const hiddenCount = items.length - ITEMS_VISIBLE_INITIALLY;
+
             return (
               <div key={moment}>
                 <p className="text-primary-500 text-sm font-medium mb-2">
                   {MOMENTS[moment]}
                 </p>
                 <ul className="space-y-1">
-                  {items.map((item) => (
+                  {visibleItems.map((item) => (
                     <li key={item.id}>
                       <button
                         onClick={() =>
@@ -219,6 +226,29 @@ export function YouTubePlayer() {
                     </li>
                   ))}
                 </ul>
+                {hasMore && (
+                  <button
+                    type="button"
+                    onClick={() => setExpandedMoments((prev) => ({ ...prev, [moment]: !isExpanded }))}
+                    className="mt-2 w-full py-2.5 px-3 rounded-lg text-sm font-medium text-primary-600 hover:bg-primary-50 active:bg-primary-100 transition touch-manipulation flex items-center justify-center gap-1"
+                  >
+                    {isExpanded ? (
+                      <>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                        </svg>
+                        Réduire
+                      </>
+                    ) : (
+                      <>
+                        Voir plus ({hiddenCount} titre{hiddenCount > 1 ? "s" : ""})
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             );
           })}
