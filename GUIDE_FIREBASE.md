@@ -184,7 +184,7 @@ Pour ajouter des musiques à la **playlist** à la main :
 2. Ajoutez des documents avec par exemple :
    - `title` (string) : "Notre chanson"
    - `youtubeVideoId` (string) : l’ID de la vidéo YouTube (ex. `dQw4w9WgXcQ`)
-   - `moment` (string) : `avant_couple`, `compagnons`, `preparatifs`, `ceremonie` ou `soiree`
+   - `moment` (string) : `compagnons`, `preparatifs`, `ceremonie` ou `soiree`
    - `order` (number) : 0, 1, 2… pour l’ordre d’affichage
 
 ---

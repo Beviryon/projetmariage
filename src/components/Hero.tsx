@@ -5,16 +5,21 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { getAllMedia } from "@/lib/firestore";
 import { getHeroBackgroundUrl } from "@/lib/cloudinary";
+import { Countdown } from "./Countdown";
 
 const SLIDE_DURATION_MS = 5000;
 
 interface HeroProps {
   names?: string;
   date?: string;
+  /** Date du mariage au format ISO (ex. 2026-02-21) pour le compteur à rebours */
+  weddingDateISO?: string;
+  /** Heure du mariage (ex. 14 pour 14h) */
+  weddingHour?: number;
   coverImage?: string;
 }
 
-export function Hero({ names = "Berges & Brest", date = "21 février 2026" }: HeroProps) {
+export function Hero({ names = "Berges & Brest", date = "21 février 2026", weddingDateISO = "2026-02-21", weddingHour = 14 }: HeroProps) {
   const [backgroundUrls, setBackgroundUrls] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -119,8 +124,13 @@ export function Hero({ names = "Berges & Brest", date = "21 février 2026" }: He
               isDark ? "text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]" : "text-stone-600"
             }`}
           >
-            {date}
+            {date} à {String(weddingHour).padStart(2, "0")}h00
           </motion.p>
+
+          <Countdown
+            targetDate={new Date(`${weddingDateISO}T${String(weddingHour).padStart(2, "0")}:00:00`)}
+            isDark={isDark}
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}

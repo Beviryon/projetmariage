@@ -10,6 +10,7 @@ interface HeaderProps {
 
 const navLinks: { href: string; label: string; dashboard?: boolean }[] = [
   { href: "/#galerie", label: "Galerie" },
+  { href: "/#lieu", label: "Lieu" },
   { href: "/#timeline", label: "Notre histoire" },
   { href: "/#playlist", label: "Playlist" },
   { href: "/#livre-or", label: "Livre d'or" },

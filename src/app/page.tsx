@@ -1,9 +1,11 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { Location } from "@/components/Location";
 import { MediaGallery } from "@/components/MediaGallery";
 import { Timeline } from "@/components/Timeline";
 import { YouTubePlayer } from "@/components/YouTubePlayer";
 import { Guestbook } from "@/components/Guestbook";
+import { Footer } from "@/components/Footer";
 
 // Données de la timeline (à personnaliser ou charger depuis une source)
 const TIMELINE_STEPS = [
@@ -41,7 +43,11 @@ export default function HomePage() {
   return (
     <main className="min-h-screen overflow-x-hidden">
       <Header names="Berges & Brest" />
-      <Hero />
+      <Hero
+        weddingDateISO={process.env.NEXT_PUBLIC_WEDDING_DATE || "2026-02-21"}
+        weddingHour={process.env.NEXT_PUBLIC_WEDDING_HOUR ? parseInt(process.env.NEXT_PUBLIC_WEDDING_HOUR, 10) : 14}
+      />
+      <Location ceremonyTime={process.env.NEXT_PUBLIC_WEDDING_TIME || "14h00"} />
       <section id="galerie" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl text-stone-800 text-center mb-8 sm:mb-12">

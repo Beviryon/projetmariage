@@ -12,7 +12,7 @@ import { CommentSection } from "./CommentSection";
 import type { Media } from "@/lib/types";
 import type { MomentKey } from "@/lib/cloudinary";
 
-const MOMENT_ORDER: MomentKey[] = ["avant_couple", "compagnons", "preparatifs", "ceremonie", "soiree"];
+const MOMENT_ORDER: MomentKey[] = ["compagnons", "preparatifs", "ceremonie", "soiree"];
 const ITEMS_PER_PAGE = 8;
 
 export function MediaGallery() {
@@ -23,8 +23,10 @@ export function MediaGallery() {
   const [likedMap, setLikedMap] = useState<Record<string, boolean>>({});
   const [currentPage, setCurrentPage] = useState(1);
   const [momentFilter, setMomentFilter] = useState<MomentKey | "all">("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const visitorId = useVisitorId();
+  const filterLabel = momentFilter === "all" ? "Tous" : MOMENTS[momentFilter];
 
   useEffect(() => {
     getAllMedia().then((list) => {
@@ -71,38 +73,68 @@ export function MediaGallery() {
   return (
     <>
       <div className="space-y-6">
-        <div className="flex flex-wrap gap-2">
+        <div className="rounded-xl border border-champagne-200 bg-champagne-50/60 overflow-hidden">
           <button
             type="button"
-            onClick={() => {
-              setMomentFilter("all");
-              setCurrentPage(1);
-            }}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
-              momentFilter === "all"
-                ? "bg-rose-400 text-white"
-                : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
-            }`}
+            onClick={() => setFiltersOpen(!filtersOpen)}
+            className="w-full flex items-center justify-between px-4 py-3 text-left text-sm font-medium text-stone-700 hover:bg-champagne-100/80 transition touch-manipulation"
+            aria-expanded={filtersOpen}
           >
-            Tous
-          </button>
-          {(Object.keys(MOMENTS) as MomentKey[]).map((moment) => (
-            <button
-              key={moment}
-              type="button"
-              onClick={() => {
-                setMomentFilter(moment);
-                setCurrentPage(1);
-              }}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
-                momentFilter === moment
-                  ? "bg-rose-400 text-white"
-                  : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
-              }`}
+            <span>Filtrer : {filterLabel}</span>
+            <svg
+              className={`w-5 h-5 text-stone-500 transition-transform ${filtersOpen ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              {MOMENTS[moment]}
-            </button>
-          ))}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <AnimatePresence initial={false}>
+            {filtersOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="flex flex-wrap gap-2 p-3 pt-0 border-t border-champagne-200">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMomentFilter("all");
+                      setCurrentPage(1);
+                    }}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
+                      momentFilter === "all"
+                        ? "bg-rose-400 text-white"
+                        : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+                    }`}
+                  >
+                    Tous
+                  </button>
+                  {(Object.keys(MOMENTS) as MomentKey[]).map((moment) => (
+                    <button
+                      key={moment}
+                      type="button"
+                      onClick={() => {
+                        setMomentFilter(moment);
+                        setCurrentPage(1);
+                      }}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
+                        momentFilter === moment
+                          ? "bg-rose-400 text-white"
+                          : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+                      }`}
+                    >
+                      {MOMENTS[moment]}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
         <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 md:grid-cols-3 lg:grid-cols-4">
           {pageItems.map((item, i) => (
@@ -180,25 +212,28 @@ export function MediaGallery() {
 
         {totalPages > 1 && (
           <nav
-            className="flex flex-wrap items-center justify-center gap-2 pt-4 sm:pt-6"
+            className="flex flex-nowrap items-center justify-center gap-1.5 sm:gap-2 pt-4 sm:pt-6 overflow-x-auto pb-1"
             aria-label="Pagination galerie"
           >
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={pageIndex <= 1}
-              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-lg border border-champagne-300 bg-white text-stone-700 hover:bg-champagne-50 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+              className="shrink-0 min-w-[40px] sm:min-w-[44px] min-h-[40px] sm:min-h-[44px] px-2 sm:px-3 py-2 rounded-lg border border-champagne-300 bg-white text-stone-700 hover:bg-champagne-50 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation flex items-center justify-center gap-1"
               aria-label="Page précédente"
             >
-              Précédent
+              <svg className="w-4 h-4 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="hidden sm:inline">Précédent</span>
             </button>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 shrink-0">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                 <button
                   key={p}
                   type="button"
                   onClick={() => setCurrentPage(p)}
-                  className={`min-w-[44px] min-h-[44px] w-11 h-11 rounded-lg font-medium touch-manipulation ${
+                  className={`min-w-[36px] sm:min-w-[44px] w-9 h-9 sm:w-11 sm:h-11 rounded-lg font-medium touch-manipulation flex items-center justify-center ${
                     p === pageIndex
                       ? "bg-rose-400 text-white border border-rose-500"
                       : "border border-champagne-300 bg-white text-stone-700 hover:bg-champagne-50"
@@ -214,10 +249,13 @@ export function MediaGallery() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={pageIndex >= totalPages}
-              className="min-w-[44px] min-h-[44px] px-3 py-2 rounded-lg border border-champagne-300 bg-white text-stone-700 hover:bg-champagne-50 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+              className="shrink-0 min-w-[40px] sm:min-w-[44px] min-h-[40px] sm:min-h-[44px] px-2 sm:px-3 py-2 rounded-lg border border-champagne-300 bg-white text-stone-700 hover:bg-champagne-50 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation flex items-center justify-center gap-1"
               aria-label="Page suivante"
             >
-              Suivant
+              <svg className="w-4 h-4 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              <span className="hidden sm:inline">Suivant</span>
             </button>
           </nav>
         )}

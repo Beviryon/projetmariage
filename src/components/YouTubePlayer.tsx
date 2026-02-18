@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MOMENTS } from "@/lib/cloudinary";
 import { getPlaylist } from "@/lib/firestore";
 import type { PlaylistItem } from "@/lib/types";
@@ -13,6 +13,9 @@ export function YouTubePlayer() {
   const [playlist, setPlaylist] = useState<PlaylistItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [momentFilter, setMomentFilter] = useState<MomentFilter>("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const filterLabel = momentFilter === "all" ? "Tous" : MOMENTS[momentFilter];
 
   useEffect(() => {
     getPlaylist().then(setPlaylist);
@@ -92,28 +95,58 @@ export function YouTubePlayer() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-2">
+      <div className="rounded-xl border border-champagne-200 bg-champagne-50/60 overflow-hidden">
         <button
           type="button"
-          onClick={() => setMomentFilter("all")}
-          className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
-            momentFilter === "all" ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
-          }`}
+          onClick={() => setFiltersOpen(!filtersOpen)}
+          className="w-full flex items-center justify-between px-4 py-3 text-left text-sm font-medium text-stone-700 hover:bg-champagne-100/80 transition touch-manipulation min-h-[44px]"
+          aria-expanded={filtersOpen}
         >
-          Tous
-        </button>
-        {(Object.keys(MOMENTS) as MomentKey[]).map((m) => (
-          <button
-            key={m}
-            type="button"
-            onClick={() => setMomentFilter(m)}
-            className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
-              momentFilter === m ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
-            }`}
+          <span>Filtrer : {filterLabel}</span>
+          <svg
+            className={`w-5 h-5 text-stone-500 transition-transform shrink-0 ${filtersOpen ? "rotate-180" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            {MOMENTS[m]}
-          </button>
-        ))}
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <AnimatePresence initial={false}>
+          {filtersOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-wrap gap-2 p-3 pt-0 border-t border-champagne-200">
+                <button
+                  type="button"
+                  onClick={() => setMomentFilter("all")}
+                  className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
+                    momentFilter === "all" ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+                  }`}
+                >
+                  Tous
+                </button>
+                {(Object.keys(MOMENTS) as MomentKey[]).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    onClick={() => setMomentFilter(m)}
+                    className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
+                      momentFilter === m ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+                    }`}
+                  >
+                    {MOMENTS[m]}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
       <div className="md:col-span-2 space-y-3 sm:space-y-4 order-1">
