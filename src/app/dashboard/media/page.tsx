@@ -191,7 +191,7 @@ export default function DashboardMediaPage() {
                 value={cloudinaryInput}
                 onChange={(e) => setCloudinaryInput(e.target.value)}
                 placeholder="https://res.cloudinary.com/.../image/upload/.../photo.jpg ou mariage/ma-photo"
-                className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm placeholder:text-stone-400"
+                className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 text-sm placeholder:text-stone-400"
               />
               <p className="mt-1 text-xs text-stone-500">
                 Collez l’URL complète d’une image/vidéo Cloudinary ou uniquement le public_id (ex. mariage/photo1).
@@ -207,7 +207,7 @@ export default function DashboardMediaPage() {
                   aria-label="Type de média"
                   value={mediaType}
                   onChange={(e) => setMediaType(e.target.value as Media["type"])}
-                  className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm"
+                  className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 text-sm"
                 >
                   <option value="image">Image</option>
                   <option value="video">Vidéo</option>
@@ -222,7 +222,7 @@ export default function DashboardMediaPage() {
                   aria-label="Moment ou événement"
                   value={moment}
                   onChange={(e) => setMoment(e.target.value as MomentKey)}
-                  className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm"
+                  className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 text-sm"
                 >
                   {(Object.keys(MOMENTS) as MomentKey[]).map((m) => (
                     <option key={m} value={m}>
@@ -242,7 +242,7 @@ export default function DashboardMediaPage() {
                 onChange={(e) => setCaption(e.target.value.slice(0, 300))}
                 placeholder="Ex : Coupe de champagne avec les mariés"
                 maxLength={300}
-                className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm"
+                className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 text-sm"
               />
               <p className="mt-1 text-xs text-stone-500">{caption.length}/300</p>
             </div>
@@ -255,7 +255,7 @@ export default function DashboardMediaPage() {
             <button
               type="submit"
               disabled={adding || !cloudinaryInput.trim()}
-              className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-rose-400 text-white text-sm font-medium hover:bg-rose-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-primary-500 text-white text-sm font-medium hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {adding ? "Ajout..." : "Ajouter à la galerie"}
             </button>
@@ -269,7 +269,7 @@ export default function DashboardMediaPage() {
           onClick={() => setTab("pending")}
           className={`px-4 py-2 text-sm font-medium transition border-b-2 -mb-px ${
             tab === "pending"
-              ? "border-rose-500 text-rose-600"
+              ? "border-primary-500 text-primary-600"
               : "border-transparent text-stone-500 hover:text-stone-700"
           }`}
         >
@@ -280,7 +280,7 @@ export default function DashboardMediaPage() {
           onClick={() => setTab("approved")}
           className={`px-4 py-2 text-sm font-medium transition border-b-2 -mb-px ${
             tab === "approved"
-              ? "border-rose-500 text-rose-600"
+              ? "border-primary-500 text-primary-600"
               : "border-transparent text-stone-500 hover:text-stone-700"
           }`}
         >

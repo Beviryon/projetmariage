@@ -108,7 +108,7 @@ export function MediaGallery() {
                     }}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
                       momentFilter === "all"
-                        ? "bg-rose-400 text-white"
+                        ? "bg-primary-500 text-white"
                         : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
                     }`}
                   >
@@ -124,7 +124,7 @@ export function MediaGallery() {
                       }}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition touch-manipulation ${
                         momentFilter === moment
-                          ? "bg-rose-400 text-white"
+                          ? "bg-primary-500 text-white"
                           : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
                       }`}
                     >
@@ -168,7 +168,7 @@ export function MediaGallery() {
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                       <div className="w-14 h-14 rounded-full bg-white/80 flex items-center justify-center">
-                        <svg className="w-8 h-8 text-rose-500 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-8 h-8 text-primary-500 ml-1" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M8 5v14l11-7z" />
                         </svg>
                       </div>
@@ -235,7 +235,7 @@ export function MediaGallery() {
                   onClick={() => setCurrentPage(p)}
                   className={`min-w-[36px] sm:min-w-[44px] w-9 h-9 sm:w-11 sm:h-11 rounded-lg font-medium touch-manipulation flex items-center justify-center ${
                     p === pageIndex
-                      ? "bg-rose-400 text-white border border-rose-500"
+                      ? "bg-primary-500 text-white border border-primary-500"
                       : "border border-champagne-300 bg-white text-stone-700 hover:bg-champagne-50"
                   }`}
                   aria-label={`Page ${p}`}

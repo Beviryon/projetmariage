@@ -53,7 +53,7 @@ export function YouTubePlayer() {
           <button
             type="button"
             onClick={() => setMomentFilter("all")}
-            className={`px-4 py-2 rounded-full text-sm font-medium ${momentFilter === "all" ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600"}`}
+            className={`px-4 py-2 rounded-full text-sm font-medium ${momentFilter === "all" ? "bg-primary-500 text-white" : "bg-champagne-100 text-stone-600"}`}
           >
             Tous
           </button>
@@ -62,7 +62,7 @@ export function YouTubePlayer() {
               key={m}
               type="button"
               onClick={() => setMomentFilter(m)}
-              className={`px-4 py-2 rounded-full text-sm font-medium ${momentFilter === m ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600"}`}
+              className={`px-4 py-2 rounded-full text-sm font-medium ${momentFilter === m ? "bg-primary-500 text-white" : "bg-champagne-100 text-stone-600"}`}
             >
               {MOMENTS[m]}
             </button>
@@ -126,7 +126,7 @@ export function YouTubePlayer() {
                   type="button"
                   onClick={() => setMomentFilter("all")}
                   className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
-                    momentFilter === "all" ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+                    momentFilter === "all" ? "bg-primary-500 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
                   }`}
                 >
                   Tous
@@ -137,7 +137,7 @@ export function YouTubePlayer() {
                     type="button"
                     onClick={() => setMomentFilter(m)}
                     className={`px-4 py-2.5 rounded-full text-sm font-medium transition touch-manipulation min-h-[44px] ${
-                      momentFilter === m ? "bg-rose-400 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
+                      momentFilter === m ? "bg-primary-500 text-white" : "bg-champagne-100 text-stone-600 hover:bg-champagne-200"
                     }`}
                   >
                     {MOMENTS[m]}
@@ -162,7 +162,7 @@ export function YouTubePlayer() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
             <h3 className="font-serif text-lg sm:text-xl text-stone-800 truncate">{current.title}</h3>
-            <p className="text-rose-400 text-sm mt-1">
+            <p className="text-primary-500 text-sm mt-1">
               {MOMENTS[current.moment as MomentKey]}
             </p>
           </div>
@@ -198,7 +198,7 @@ export function YouTubePlayer() {
 
             return (
               <div key={moment}>
-                <p className="text-rose-400 text-sm font-medium mb-2">
+                <p className="text-primary-500 text-sm font-medium mb-2">
                   {MOMENTS[moment]}
                 </p>
                 <ul className="space-y-1">
@@ -210,7 +210,7 @@ export function YouTubePlayer() {
                         }
                         className={`w-full text-left py-3 px-3 rounded-lg transition text-sm touch-manipulation min-h-[44px] flex items-center ${
                           current?.id === item.id
-                            ? "bg-rose-100 text-rose-700"
+                            ? "bg-primary-100 text-primary-700"
                             : "hover:bg-champagne-100 active:bg-champagne-200 text-stone-600"
                         }`}
                       >

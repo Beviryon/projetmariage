@@ -1,11 +1,16 @@
 "use client";
 
 import { ReactNode } from "react";
+import { LoadingScreen } from "./LoadingScreen";
 
 interface ProvidersProps {
   children: ReactNode;
 }
 
 export function Providers({ children }: ProvidersProps) {
-  return <>{children}</>;
+  return (
+    <LoadingScreen message={process.env.NEXT_PUBLIC_LOADING_MESSAGE || "Préparation de votre visite..."}>
+      {children}
+    </LoadingScreen>
+  );
 }

@@ -1,11 +1,13 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Location } from "@/components/Location";
+import { DressCode } from "@/components/DressCode";
 import { MediaGallery } from "@/components/MediaGallery";
 import { Timeline } from "@/components/Timeline";
 import { YouTubePlayer } from "@/components/YouTubePlayer";
 import { Guestbook } from "@/components/Guestbook";
 import { Footer } from "@/components/Footer";
+import { SectionDivider } from "@/components/SectionDivider";
 
 // Données de la timeline (à personnaliser ou charger depuis une source)
 const TIMELINE_STEPS = [
@@ -39,6 +41,13 @@ const TIMELINE_STEPS = [
   },
 ];
 
+const QUOTES = [
+  "L'amour ne consiste pas à se regarder l'un l'autre, mais à regarder ensemble dans la même direction.",
+  "Le mariage, c'est aimer quelqu'un pour toujours, un jour à la fois.",
+  "Deux âmes en une seule pensée, deux cœurs qui ne battent qu'à l'unisson.",
+  "Le plus grand bonheur de la vie est d'être aimé pour ce que l'on est.",
+];
+
 export default function HomePage() {
   return (
     <main className="min-h-screen overflow-x-hidden">
@@ -48,6 +57,9 @@ export default function HomePage() {
         weddingHour={process.env.NEXT_PUBLIC_WEDDING_HOUR ? parseInt(process.env.NEXT_PUBLIC_WEDDING_HOUR, 10) : 14}
       />
       <Location ceremonyTime={process.env.NEXT_PUBLIC_WEDDING_TIME || "14h00"} />
+      <SectionDivider variant="heart" quote={QUOTES[0]} />
+      <DressCode color="bleu foncé" />
+      <SectionDivider variant="ring" quote={QUOTES[1]} />
       <section id="galerie" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl text-stone-800 text-center mb-8 sm:mb-12">
@@ -56,7 +68,7 @@ export default function HomePage() {
           <MediaGallery />
         </div>
       </section>
-
+      <SectionDivider variant="heart" quote={QUOTES[2]} />
       <section id="timeline" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6 bg-champagne-50/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl text-stone-800 text-center mb-10 sm:mb-16">
@@ -65,7 +77,7 @@ export default function HomePage() {
           <Timeline steps={TIMELINE_STEPS} />
         </div>
       </section>
-
+      <SectionDivider variant="ring" quote={QUOTES[3]} />
       <section id="playlist" className="py-10 sm:py-16 md:py-20 scroll-mt-16 md:scroll-mt-20 px-3 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl text-stone-800 text-center mb-8 sm:mb-12">

@@ -191,7 +191,7 @@ export default function DashboardPlaylistPage() {
               value={youtubeInput}
               onChange={(e) => setYoutubeInput(e.target.value)}
               placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..."
-              className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm placeholder:text-stone-400"
+              className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 text-sm placeholder:text-stone-400"
             />
           </div>
           <div>
@@ -205,7 +205,7 @@ export default function DashboardPlaylistPage() {
                 onChange={(e) => setTitle(e.target.value.slice(0, 100))}
                 placeholder="Saisissez un titre ou récupérez-le depuis YouTube"
                 maxLength={100}
-                className="flex-1 min-w-0 px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm"
+                className="flex-1 min-w-0 px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 text-sm"
               />
               <button
                 type="button"
@@ -241,7 +241,7 @@ export default function DashboardPlaylistPage() {
                 id="playlist-moment"
                 value={moment}
                 onChange={(e) => setMoment(e.target.value as MomentKey)}
-                className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 text-sm"
+                className="w-full px-3 py-2.5 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 text-sm"
               >
                 {(Object.keys(MOMENTS) as MomentKey[]).map((m) => (
                   <option key={m} value={m}>
@@ -256,7 +256,7 @@ export default function DashboardPlaylistPage() {
           <button
             type="submit"
             disabled={adding || !youtubeInput.trim()}
-            className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-rose-400 text-white text-sm font-medium hover:bg-rose-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-primary-500 text-white text-sm font-medium hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {adding ? "Ajout..." : "Ajouter à la playlist"}
           </button>
@@ -294,7 +294,7 @@ export default function DashboardPlaylistPage() {
                 <span className="text-stone-400 text-sm w-6">{index + 1}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-stone-800 truncate">{item.title}</p>
-                  <p className="text-rose-500 text-xs mt-0.5">{MOMENTS[item.moment as MomentKey]}</p>
+                  <p className="text-primary-600 text-xs mt-0.5">{MOMENTS[item.moment as MomentKey]}</p>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
                   <button

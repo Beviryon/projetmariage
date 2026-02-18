@@ -53,7 +53,7 @@ export function NameModal({ isOpen, onClose, onSave }: NameModalProps) {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Votre prénom"
                 maxLength={50}
-                className="w-full px-4 py-3 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 focus:border-rose-400 outline-none transition"
+                className="w-full px-4 py-3 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 focus:border-primary-400 outline-none transition"
                 autoFocus
               />
               <div className="flex flex-col-reverse sm:flex-row gap-3 mt-4">
@@ -67,7 +67,7 @@ export function NameModal({ isOpen, onClose, onSave }: NameModalProps) {
                 <button
                   type="submit"
                   disabled={!name.trim()}
-                  className="flex-1 py-3 sm:py-2.5 rounded-lg bg-rose-400 text-white hover:bg-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition font-medium touch-manipulation min-h-[44px]"
+                  className="flex-1 py-3 sm:py-2.5 rounded-lg bg-primary-500 text-white hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition font-medium touch-manipulation min-h-[44px]"
                 >
                   Continuer
                 </button>

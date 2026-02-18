@@ -41,14 +41,14 @@ export function Timeline({ steps }: TimelineProps) {
                   i % 2 === 1 ? "md:mr-8 md:text-right" : "md:mr-8"
                 }`}
               >
-                <span className="text-rose-400 font-serif text-xs sm:text-sm">{step.date}</span>
+                <span className="text-primary-500 font-serif text-xs sm:text-sm">{step.date}</span>
                 <h3 className="font-serif text-lg sm:text-2xl text-stone-800 mt-1">{step.title}</h3>
                 <p className="text-stone-600 mt-2 sm:mt-3 leading-relaxed text-sm sm:text-base">{step.description}</p>
               </div>
             </div>
 
             <div
-              className={`absolute left-4 sm:left-8 md:left-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-rose-400 border-2 sm:border-4 border-champagne-50 -translate-x-1/2 z-10 shrink-0 ${
+              className={`absolute left-4 sm:left-8 md:left-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-primary-500 border-2 sm:border-4 border-champagne-50 -translate-x-1/2 z-10 shrink-0 ${
                 i % 2 === 1 ? "md:translate-x-1/2" : "md:-translate-x-1/2"
               }`}
             />

@@ -27,7 +27,7 @@ export default function DashboardLayout({
           <div className="hidden md:flex items-center gap-6">
             <Link
               href="/dashboard"
-              className="font-serif text-xl text-stone-800 hover:text-rose-500 transition"
+              className="font-serif text-xl text-stone-800 hover:text-primary-500 transition"
             >
               Tableau de bord
             </Link>
@@ -36,8 +36,8 @@ export default function DashboardLayout({
                 href="/dashboard/media"
                 className={`transition py-2 ${
                   pathname === "/dashboard/media"
-                    ? "text-rose-500 font-medium"
-                    : "text-stone-600 hover:text-rose-500"
+                    ? "text-primary-500 font-medium"
+                    : "text-stone-600 hover:text-primary-500"
                 }`}
               >
                 Médias
@@ -46,8 +46,8 @@ export default function DashboardLayout({
                 href="/dashboard/playlist"
                 className={`transition py-2 ${
                   pathname === "/dashboard/playlist"
-                    ? "text-rose-500 font-medium"
-                    : "text-stone-600 hover:text-rose-500"
+                    ? "text-primary-500 font-medium"
+                    : "text-stone-600 hover:text-primary-500"
                 }`}
               >
                 Playlist
@@ -59,7 +59,7 @@ export default function DashboardLayout({
           <div className="flex md:hidden items-center justify-between w-full min-w-0">
             <Link
               href="/dashboard"
-              className="font-serif text-lg text-stone-800 hover:text-rose-500 transition truncate min-w-0"
+              className="font-serif text-lg text-stone-800 hover:text-primary-500 transition truncate min-w-0"
             >
               Tableau de bord
             </Link>
@@ -117,7 +117,7 @@ export default function DashboardLayout({
                     onClick={() => setMenuOpen(false)}
                     className={`block py-3.5 px-4 rounded-xl transition min-h-[48px] flex items-center text-base touch-manipulation ${
                       pathname === link.href
-                        ? "text-rose-500 font-medium bg-rose-50"
+                        ? "text-primary-500 font-medium bg-primary-50"
                         : "text-stone-600 hover:bg-champagne-200 active:bg-champagne-300"
                     }`}
                   >

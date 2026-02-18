@@ -87,7 +87,7 @@ export function Guestbook() {
             placeholder={hasName ? "Laissez-nous un message..." : "Cliquez pour entrer votre prénom"}
             maxLength={1000}
             rows={4}
-            className="w-full px-4 py-3 rounded-xl border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 focus:border-rose-400 outline-none resize-none text-base min-h-[100px] touch-manipulation"
+            className="w-full px-4 py-3 rounded-xl border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 focus:border-primary-400 outline-none resize-none text-base min-h-[100px] touch-manipulation"
             onClick={() => !hasName && setShowNameModal(true)}
           />
           <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 mt-2">
@@ -95,7 +95,7 @@ export function Guestbook() {
             <button
               type="submit"
               disabled={!content.trim() || submitting}
-              className="px-6 py-3 sm:py-2.5 rounded-lg bg-rose-400 text-white hover:bg-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition font-medium touch-manipulation min-h-[44px] order-1 sm:order-2"
+              className="px-6 py-3 sm:py-2.5 rounded-lg bg-primary-500 text-white hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition font-medium touch-manipulation min-h-[44px] order-1 sm:order-2"
             >
               {submitting ? "Envoi..." : "Publier"}
             </button>
@@ -135,7 +135,7 @@ export function Guestbook() {
                 className="bg-champagne-100/50 rounded-xl p-4 sm:p-6 border border-champagne-200"
               >
                 <p className="text-stone-800 leading-relaxed">{entry.content}</p>
-                <p className="text-rose-500 font-medium mt-3">{entry.authorName}</p>
+                <p className="text-primary-600 font-medium mt-3">{entry.authorName}</p>
                 <p className="text-stone-400 text-sm mt-1">{formatDate(entry.createdAt)}</p>
               </motion.div>
             ))}

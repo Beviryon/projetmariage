@@ -60,7 +60,7 @@ function AuthForm() {
             setError(false);
           }}
           placeholder="Mot de passe"
-          className="w-full px-4 py-3 rounded-lg border border-champagne-300 focus:ring-2 focus:ring-rose-300 focus:border-rose-400 outline-none text-base min-h-[48px]"
+          className="w-full px-4 py-3 rounded-lg border border-champagne-300 focus:ring-2 focus:ring-primary-300 focus:border-primary-400 outline-none text-base min-h-[48px]"
           autoFocus
         />
         {error && (
@@ -72,7 +72,7 @@ function AuthForm() {
         )}
         <button
           type="submit"
-          className="w-full py-3 rounded-lg bg-rose-400 text-white hover:bg-rose-500 transition font-medium touch-manipulation min-h-[48px]"
+          className="w-full py-3 rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition font-medium touch-manipulation min-h-[48px]"
         >
           Accéder
         </button>

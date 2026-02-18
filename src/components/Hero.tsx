@@ -155,7 +155,7 @@ export function Hero({ names = "Berges & Brest", date = "21 février 2026", wedd
               className={`inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-sm sm:text-base font-medium tracking-wide transition-all duration-300 min-h-[48px] touch-manipulation ${
                 isDark
                   ? "bg-white text-stone-800 hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98]"
-                  : "bg-stone-800 text-white hover:bg-stone-700 hover:scale-[1.02] active:scale-[0.98]"
+                  : "bg-primary-500 text-white hover:bg-primary-600 hover:scale-[1.02] active:scale-[0.98]"
               }`}
             >
               Découvrir la galerie

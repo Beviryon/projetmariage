@@ -112,7 +112,7 @@ export function CommentSection({ mediaId }: CommentSectionProps) {
           placeholder={hasName ? "Ajouter un commentaire..." : "Cliquez pour entrer votre prénom"}
           maxLength={MAX_COMMENT_LENGTH}
           rows={3}
-          className="w-full px-4 py-3 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-rose-300 focus:border-rose-400 outline-none resize-none text-sm"
+          className="w-full px-4 py-3 rounded-lg border border-champagne-300 bg-white focus:ring-2 focus:ring-primary-300 focus:border-primary-400 outline-none resize-none text-sm"
           onClick={() => !hasName && setShowNameModal(true)}
         />
         <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2">
@@ -122,7 +122,7 @@ export function CommentSection({ mediaId }: CommentSectionProps) {
           <button
             type="submit"
             disabled={!content.trim() || submitting}
-            className="px-4 py-2.5 sm:py-2 rounded-lg bg-rose-400 text-white hover:bg-rose-500 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm font-medium touch-manipulation min-h-[44px] order-1 sm:order-2"
+            className="px-4 py-2.5 sm:py-2 rounded-lg bg-primary-500 text-white hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition text-sm font-medium touch-manipulation min-h-[44px] order-1 sm:order-2"
           >
             {submitting ? "Envoi..." : "Publier"}
           </button>

@@ -10,6 +10,7 @@ interface HeaderProps {
 
 const navLinks: { href: string; label: string; dashboard?: boolean }[] = [
   { href: "/#galerie", label: "Galerie" },
+  { href: "/#dress-code", label: "Dress code" },
   { href: "/#lieu", label: "Lieu" },
   { href: "/#timeline", label: "Notre histoire" },
   { href: "/#playlist", label: "Playlist" },
@@ -27,7 +28,7 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
       className="fixed top-0 left-0 right-0 z-30 bg-champagne-50/95 backdrop-blur-md border-b border-champagne-200 pt-[env(safe-area-inset-top)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]"
     >
       <nav className="max-w-6xl mx-auto px-3 py-2.5 sm:px-4 md:py-4 flex items-center justify-between gap-2 min-h-[44px] md:min-h-0">
-        <Link href="/" className="font-serif text-base sm:text-lg md:text-xl text-stone-800 hover:text-rose-500 active:text-rose-600 transition truncate min-w-0 max-w-[60vw] sm:max-w-none py-2 touch-manipulation">
+        <Link href="/" className="font-serif text-base sm:text-lg md:text-xl text-stone-800 hover:text-primary-500 active:text-primary-600 transition truncate min-w-0 max-w-[60vw] sm:max-w-none py-2 touch-manipulation">
           {names}
         </Link>
 
@@ -37,7 +38,7 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
             <Link
               key={link.href}
               href={link.href}
-              className={`transition ${link.dashboard ? "text-rose-500 hover:text-rose-600 font-medium" : "text-stone-600 hover:text-rose-500"}`}
+              className={`transition ${link.dashboard ? "text-primary-500 hover:text-primary-600 font-medium" : "text-stone-600 hover:text-primary-500"}`}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -80,7 +81,7 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`block py-3.5 px-4 rounded-xl transition min-h-[48px] flex items-center text-base touch-manipulation ${link.dashboard ? "text-rose-500 font-medium hover:bg-rose-50 active:bg-rose-100" : "text-stone-600 hover:bg-champagne-200 hover:text-rose-500 active:bg-champagne-300"}`}
+                  className={`block py-3.5 px-4 rounded-xl transition min-h-[48px] flex items-center text-base touch-manipulation ${link.dashboard ? "text-primary-500 font-medium hover:bg-primary-50 active:bg-primary-100" : "text-stone-600 hover:bg-champagne-200 hover:text-primary-500 active:bg-champagne-300"}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}

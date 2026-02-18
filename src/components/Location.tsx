@@ -38,7 +38,7 @@ export function Location({
           transition={{ delay: 0.1 }}
           className="space-y-4"
         >
-          <p className="text-rose-600 font-medium text-lg sm:text-xl">
+          <p className="text-primary-600 font-medium text-lg sm:text-xl">
             Cérémonie à {ceremonyTime}
           </p>
           <p className="text-stone-700 text-lg sm:text-xl leading-relaxed">
@@ -52,7 +52,7 @@ export function Location({
             href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-rose-400 text-white hover:bg-rose-500 transition font-medium text-sm touch-manipulation"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary-500 text-white hover:bg-primary-600 transition font-medium text-sm touch-manipulation"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
