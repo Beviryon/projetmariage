@@ -64,8 +64,21 @@ export function MediaGallery() {
 
   if (loading) {
     return (
-      <div className="py-20 text-center">
-        <div className="animate-pulse text-stone-400">Chargement de la galerie...</div>
+      <div className="space-y-6">
+        <div className="rounded-xl border border-champagne-200 bg-champagne-50/60 overflow-hidden">
+          <div className="h-12 px-4 flex items-center">
+            <div className="h-4 w-32 bg-stone-200 rounded animate-pulse" />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="flex flex-col gap-2">
+              <div className="aspect-square rounded-xl bg-stone-200 animate-pulse" />
+              <div className="h-3 w-2/3 bg-stone-200 rounded animate-pulse" />
+              <div className="h-3 w-full bg-stone-100 rounded animate-pulse" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

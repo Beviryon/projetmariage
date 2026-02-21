@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 interface HeaderProps {
   names?: string;
@@ -18,8 +19,14 @@ const navLinks: { href: string; label: string; dashboard?: boolean }[] = [
   { href: "/dashboard", label: "Tableau de bord", dashboard: true },
 ];
 
+function getSectionId(href: string): string | null {
+  const hash = href.split("#")[1];
+  return hash || null;
+}
+
 export function Header({ names = "Notre Mariage" }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const activeSection = useActiveSection();
 
   return (
     <motion.header
@@ -34,16 +41,20 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-5 lg:gap-6 text-sm">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`transition ${link.dashboard ? "text-primary-500 hover:text-primary-600 font-medium" : "text-stone-600 hover:text-primary-500"}`}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const sectionId = getSectionId(link.href);
+            const isActive = sectionId && activeSection === sectionId;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`transition ${link.dashboard ? "text-primary-500 hover:text-primary-600 font-medium" : isActive ? "text-primary-600 font-medium" : "text-stone-600 hover:text-primary-500"}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Mobile menu button */}
@@ -77,16 +88,20 @@ export function Header({ names = "Notre Mariage" }: HeaderProps) {
             className="md:hidden overflow-hidden border-t border-champagne-200 bg-champagne-50 shadow-lg pb-[env(safe-area-inset-bottom)]"
           >
             <nav className="px-3 sm:px-4 py-3 space-y-1" aria-label="Menu principal">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block py-3.5 px-4 rounded-xl transition min-h-[48px] flex items-center text-base touch-manipulation ${link.dashboard ? "text-primary-500 font-medium hover:bg-primary-50 active:bg-primary-100" : "text-stone-600 hover:bg-champagne-200 hover:text-primary-500 active:bg-champagne-300"}`}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const sectionId = getSectionId(link.href);
+                const isActive = sectionId && activeSection === sectionId;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`block py-3.5 px-4 rounded-xl transition min-h-[48px] flex items-center text-base touch-manipulation ${link.dashboard ? "text-primary-500 font-medium hover:bg-primary-50 active:bg-primary-100" : isActive ? "text-primary-600 font-medium bg-primary-50" : "text-stone-600 hover:bg-champagne-200 hover:text-primary-500 active:bg-champagne-300"}`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </nav>
           </motion.div>
         )}

@@ -11,6 +11,7 @@ type MomentFilter = MomentKey | "all";
 
 export function YouTubePlayer() {
   const [playlist, setPlaylist] = useState<PlaylistItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [momentFilter, setMomentFilter] = useState<MomentFilter>("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -20,7 +21,9 @@ export function YouTubePlayer() {
   const ITEMS_VISIBLE_INITIALLY = 3;
 
   useEffect(() => {
-    getPlaylist().then(setPlaylist);
+    getPlaylist()
+      .then(setPlaylist)
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredPlaylist =
@@ -39,6 +42,43 @@ export function YouTubePlayer() {
       setCurrentIndex(filteredPlaylist.length - 1);
     }
   }, [filteredPlaylist.length, currentIndex]);
+
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        <div className="rounded-xl border border-champagne-200 bg-champagne-50/60 overflow-hidden">
+          <div className="h-12 px-4 flex items-center">
+            <div className="h-4 w-28 bg-stone-200 rounded animate-pulse" />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
+          <div className="md:col-span-2 space-y-3">
+            <div className="aspect-video rounded-xl bg-stone-200 animate-pulse" />
+            <div className="flex justify-between gap-3">
+              <div className="flex-1 space-y-2">
+                <div className="h-5 w-3/4 bg-stone-200 rounded animate-pulse" />
+                <div className="h-4 w-24 bg-stone-100 rounded animate-pulse" />
+              </div>
+              <div className="flex gap-2">
+                <div className="w-10 h-10 rounded-full bg-stone-200 animate-pulse" />
+                <div className="w-10 h-10 rounded-full bg-stone-200 animate-pulse" />
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div className="h-5 w-20 bg-stone-200 rounded animate-pulse" />
+            <div className="space-y-4 max-h-[280px]">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="h-10 flex-1 bg-stone-100 rounded-lg animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!playlist.length) {
     return (

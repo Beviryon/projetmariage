@@ -7,37 +7,52 @@ import { Timeline } from "@/components/Timeline";
 import { YouTubePlayer } from "@/components/YouTubePlayer";
 import { Guestbook } from "@/components/Guestbook";
 import { Footer } from "@/components/Footer";
+import { BackToTop } from "@/components/BackToTop";
 import { SectionDivider } from "@/components/SectionDivider";
 
-// Données de la timeline (à personnaliser ou charger depuis une source)
+// Notre histoire – timeline
 const TIMELINE_STEPS = [
   {
     id: "1",
     title: "Notre rencontre",
-    date: "2018",
+    date: "Au travail",
     description:
-      "C'est par hasard que nos chemins se sont croisés. Un regard, un sourire, et notre histoire a commencé.",
+      "Notre histoire a commencé simplement, au travail. Nous nous sommes croisés lorsqu'elle venait dans mon service avec sa collègue dans le cadre de leur stage QHSE pour animer les tool box (briefings matinaux). Après chaque tool box, nous avions une petite réunion avec notre chef de service, et cela se passait en anglais.",
   },
   {
     id: "2",
-    title: "Premier voyage ensemble",
-    date: "2019",
+    title: "L'anglais et une promesse",
+    date: "Les premiers échanges",
     description:
-      "Notre premier voyage à deux. Des souvenirs inoubliables et des promesses pour l'avenir.",
+      "Un jour, elles m'ont vu m'exprimer en anglais et elles se sont rapprochées de moi pour me demander si je pouvais les aider à améliorer leur anglais. J'ai accepté avec plaisir et je leur ai promis de préparer un programme de formation. Mais le temps passait… Un mois, puis quelques semaines encore… et je faisais seulement des promesses sans vraiment commencer les cours.",
   },
   {
     id: "3",
-    title: "La demande",
-    date: "2023",
+    title: "La même ruelle",
+    date: "Le hasard",
     description:
-      "Un moment magique qui a changé nos vies. Oui, mille fois oui !",
+      "Puis, la vie nous a rapprochés d'une manière inattendue. Elle a quitté l'hôtel où elle logeait et a pris un studio… sans savoir qu'il se trouvait dans ma ruelle. Un jour, nous nous sommes croisés par hasard. C'est ce jour-là qu'elle m'a montré où elle habitait, et moi aussi.",
   },
   {
     id: "4",
-    title: "Le grand jour",
-    date: "2025",
+    title: "Voisins et cours d'anglais",
+    date: "Enfin les leçons",
     description:
-      "Le plus beau jour de notre vie. Merci à tous ceux qui ont partagé ce moment avec nous.",
+      "À partir de ce moment, j'ai enfin commencé à lui donner des cours d'anglais, puisque nous étions voisins. Avec le temps, après les cours, nous restions discuter… puis regarder la télévision ensemble…",
+  },
+  {
+    id: "5",
+    title: "Quelque chose de plus",
+    date: "L'amour",
+    description:
+      "Et petit à petit, sans vraiment nous en rendre compte, quelque chose de plus fort est né entre nous. Ce qui avait commencé par le travail, l'apprentissage et la proximité est devenu une relation sincère et amoureuse.",
+  },
+  {
+    id: "6",
+    title: "Le grand jour",
+    date: "2026",
+    description:
+      "Le plus beau jour de notre vie. Merci à tous ceux qui partagent ce moment avec nous.",
   },
 ];
 
@@ -89,6 +104,7 @@ export default function HomePage() {
 
       <Guestbook />
       <Footer />
+      <BackToTop />
     </main>
   );
 }
