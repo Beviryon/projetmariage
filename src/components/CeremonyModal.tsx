@@ -43,6 +43,10 @@ export function CeremonyModal() {
     setCurrentIndex((i) => (i + 1) % Math.max(1, items.length));
   }, [items.length]);
 
+  const goPrev = useCallback(() => {
+    setCurrentIndex((i) => (i - 1 + items.length) % Math.max(1, items.length));
+  }, [items.length]);
+
   useEffect(() => {
     if (!isOpen || items.length <= 1) return;
     const current = items[currentIndex];
@@ -118,6 +122,31 @@ export function CeremonyModal() {
 
               {/* Carousel */}
               <div className="relative flex-1 min-h-0 flex items-center justify-center bg-black aspect-video max-h-[70vh]">
+                {/* Précédent / Suivant */}
+                {items.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition touch-manipulation"
+                      aria-label="Précédent"
+                    >
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition touch-manipulation"
+                      aria-label="Suivant"
+                    >
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </>
+                )}
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={`${current?.id}-${currentIndex}`}
