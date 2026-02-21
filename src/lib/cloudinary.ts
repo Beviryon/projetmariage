@@ -3,6 +3,7 @@ const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 export type MediaType = "image" | "video";
 
 export const MOMENTS = {
+  banniere: "À l'affiche",
   compagnons: "Compagnon et copine",
   preparatifs: "Préparatifs",
   ceremonie: "Cérémonie",
@@ -72,5 +73,19 @@ export function getFullscreenUrl(cloudinaryId: string, type: MediaType): string 
 export function getHeroBackgroundUrl(cloudinaryId: string): string {
   return getCloudinaryUrl(cloudinaryId, "image", {
     rawTransform: "f_auto,q_auto:good,w_1920,h_1080,c_fill",
+  });
+}
+
+/**
+ * URL pour la bannière défilante (images et vidéos)
+ */
+export function getBannerMediaUrl(cloudinaryId: string, type: MediaType): string {
+  if (type === "video") {
+    return getCloudinaryUrl(cloudinaryId, "video", {
+      rawTransform: "f_auto,q_auto:good",
+    });
+  }
+  return getCloudinaryUrl(cloudinaryId, "image", {
+    rawTransform: "f_auto,q_auto:good,w_1280,h_480,c_fill",
   });
 }

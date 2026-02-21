@@ -1,14 +1,15 @@
 "use client";
 
 import { Suspense, useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const AUTH_KEY = "wedding_authenticated";
+// Cookie 7 jours (évite de se déconnecter tous les jours)
+const COOKIE_MAX_AGE = 7 * 24 * 60 * 60;
 
 function AuthForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/";
   const secretLink = searchParams.get("secret");
@@ -19,10 +20,10 @@ function AuthForm() {
 
   useEffect(() => {
     if (isSecretValid) {
-      document.cookie = `${AUTH_KEY}=true; path=/; max-age=86400`;
-      router.replace(redirect);
+      document.cookie = `${AUTH_KEY}=true; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
+      window.location.href = redirect;
     }
-  }, [isSecretValid, redirect, router]);
+  }, [isSecretValid, redirect]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,9 +33,10 @@ function AuthForm() {
     }
     if (password === passwordConfig) {
       if (typeof window !== "undefined") {
-        document.cookie = `${AUTH_KEY}=true; path=/; max-age=86400`;
+        document.cookie = `${AUTH_KEY}=true; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
       }
-      router.push(redirect);
+      // Redirection complète pour que le cookie soit bien envoyé au prochain chargement
+      window.location.href = redirect;
     } else {
       setError(true);
     }

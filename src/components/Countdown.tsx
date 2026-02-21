@@ -129,6 +129,9 @@ export function Countdown({ targetDate, isDark = false }: CountdownProps) {
 
   // Date passée
   if (timeSince) {
+    const liveStreamUrl = (process.env.NEXT_PUBLIC_LIVE_STREAM_URL || "").trim();
+    const isToday = timeSince.type === "days" && timeSince.value === 0;
+
     const text =
       timeSince.type === "years"
         ? timeSince.value === 1
@@ -153,6 +156,24 @@ export function Countdown({ targetDate, isDark = false }: CountdownProps) {
         >
           {text}
         </p>
+        {isToday && liveStreamUrl && (
+          <a
+            href={liveStreamUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`mt-4 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition min-h-[44px] touch-manipulation ${
+              isDark
+                ? "bg-white/20 hover:bg-white/30 text-white border border-white/40"
+                : "bg-primary-500 hover:bg-primary-600 text-white"
+            }`}
+          >
+            <span className="inline-flex w-2 h-2 rounded-full bg-red-400 animate-pulse" aria-hidden />
+            Regarder la cérémonie en direct
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        )}
       </motion.div>
     );
   }

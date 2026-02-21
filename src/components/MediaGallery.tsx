@@ -12,7 +12,7 @@ import { CommentSection } from "./CommentSection";
 import type { Media } from "@/lib/types";
 import type { MomentKey } from "@/lib/cloudinary";
 
-const MOMENT_ORDER: MomentKey[] = ["compagnons", "preparatifs", "ceremonie", "soiree"];
+const MOMENT_ORDER: MomentKey[] = ["banniere", "compagnons", "preparatifs", "ceremonie", "soiree"];
 const ITEMS_PER_PAGE = 8;
 
 export function MediaGallery() {

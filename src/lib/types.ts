@@ -1,4 +1,4 @@
-export type MomentKey = "compagnons" | "preparatifs" | "ceremonie" | "soiree";
+export type MomentKey = "banniere" | "compagnons" | "preparatifs" | "ceremonie" | "soiree";
 
 export interface Couple {
   id: string;

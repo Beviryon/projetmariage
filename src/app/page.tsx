@@ -9,6 +9,7 @@ import { Guestbook } from "@/components/Guestbook";
 import { Footer } from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
 import { SectionDivider } from "@/components/SectionDivider";
+import { CeremonyModal } from "@/components/CeremonyModal";
 
 // Notre histoire – timeline
 const TIMELINE_STEPS = [
@@ -71,6 +72,7 @@ export default function HomePage() {
         weddingDateISO={process.env.NEXT_PUBLIC_WEDDING_DATE || "2026-02-21"}
         weddingHour={process.env.NEXT_PUBLIC_WEDDING_HOUR ? parseInt(process.env.NEXT_PUBLIC_WEDDING_HOUR, 10) : 14}
       />
+      <CeremonyModal />
       <Location ceremonyTime={process.env.NEXT_PUBLIC_WEDDING_TIME || "14h00"} />
       <SectionDivider variant="heart" quote={QUOTES[0]} />
       <DressCode color="bleu foncé" />
